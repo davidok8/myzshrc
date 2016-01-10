@@ -47,30 +47,34 @@ ZSH_THEME="ys-light"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+
 # User configuration
+source $ZSH/oh-my-zsh.sh
+
+export LANG=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+# Python environment.
+export PYTHONPATH=/home/david/caffe-rc2/build:$PYTHONPATH
+export WORKON_HOME=~/virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+source /usr/local/bin/virtualenvwrapper.sh
+
+# Golang environment
+export GOPATH=$HOME/go
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 
-export PYTHONSTARTUP=$HOME/.pythonrc.py
-#export VIRTUALENV_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
+# SSH
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -81,5 +85,8 @@ source /usr/local/bin/virtualenvwrapper.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls='ls --color=auto -FX --group-directories-first'
-alias ipython='ipython -i $PYTHONSTARTUP'
-alias tmux='tmux -2'
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# added by travis gem
+[ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
