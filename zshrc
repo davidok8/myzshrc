@@ -5,7 +5,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="ys-light"
+#ZSH_THEME="ys-light"
+ZSH_THEME="bullet-train"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -90,3 +91,4 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # added by travis gem
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
+source /home/david/Desktop/GitHub/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
