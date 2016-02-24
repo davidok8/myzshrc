@@ -46,7 +46,7 @@ ZSH_THEME="bullet-train"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-syntax-highlighting)
 
 
 # User configuration
@@ -91,4 +91,3 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # added by travis gem
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
-source /home/david/Desktop/GitHub/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
