@@ -7,6 +7,10 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="ys-light"
 ZSH_THEME="bullet-train"
+BULLETTRAIN_CONTEXT_SHOW="true"
+BULLETTRAIN_CONTEXT_BG="green"
+BULLETTRAIN_CONTEXT_FG="white"
+BULLETTRAIN_IS_SSH_CLIENT="true"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -58,12 +62,14 @@ export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
-export PYTHONPATH=/home/david/caffe-rc2/build:$PYTHONPATH
-export WORKON_HOME=~/virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+if [ "$(hostname)" = "zenbook" ]; then
+  export PYTHONPATH=/home/david/caffe-rc2/build:$PYTHONPATH
+  export WORKON_HOME=~/virtualenvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 
-source /usr/local/bin/virtualenvwrapper.sh
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # Golang environment
 export GOPATH=$HOME/go
