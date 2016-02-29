@@ -74,7 +74,13 @@ fi
 export GOPATH=$HOME/go
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  export EDITOR='vim'
+elif [[ "$OSTYPE" == "darwin*" ]]; then
+  export EDITOR='mvim -v';
+elif [[ "$OSTYPE" == "msys" ]]; then
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,7 +96,11 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ls='ls --color=auto -FX --group-directories-first'
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias ls='ls --color=auto -FX --group-directories-first'
+elif [[ "$OSTYPE" == "darwin*" ]]; then
+  alias ls='gls --color=auto -FX --group-directories-first'
+fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
