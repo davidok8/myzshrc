@@ -12,3 +12,5 @@ ln -sf $(pwd)/bullet-train.zsh-theme ~/.oh-my-zsh/themes
 
 # Make symbolic links for zshrc.
 ln -sf $(pwd)/zshrc ~/.zshrc
+
+source ~/.zshrc
