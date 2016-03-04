@@ -66,7 +66,11 @@ if [ "$(hostname)" = "zenbook" ]; then
   export WORKON_HOME=~/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-
+  source /usr/local/bin/virtualenvwrapper.sh
+elif [ "$(hostname)" = "davids-macbook" ]; then
+  export WORKON_HOME=~/virtualenvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 fi
 
@@ -106,3 +110,5 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # added by travis gem
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
