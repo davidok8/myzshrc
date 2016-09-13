@@ -62,14 +62,18 @@ export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b
 
 # Python environment.
 if [ "$(hostname)" = "zenbook" ]; then
-  export PYTHONPATH=/home/david/caffe-rc2/build:$PYTHONPATH
-  export WORKON_HOME=~/virtualenvs
+  export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 elif [ "$(hostname)" = "davids-macbook" ]; then
-  export WORKON_HOME=~/virtualenvs
+  export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+  source /usr/local/bin/virtualenvwrapper.sh
+else
+  export WORKON_HOME=${HOME}/VisualRecognition
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 fi
