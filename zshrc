@@ -71,11 +71,6 @@ elif [ "$(hostname)" = "davids-macbook" ]; then
   export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
-else
-  export WORKON_HOME=${HOME}/VisualRecognition
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-  source /usr/local/bin/virtualenvwrapper.sh
 fi
 
 # Golang environment
