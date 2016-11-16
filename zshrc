@@ -61,7 +61,8 @@ export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
-if [ "$(hostname)" = "zenbook" ]; then
+if [[ "$(hostname)" == "bokor" ||
+      "$(hostname)" == "mir-053" ]]; then
   export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
