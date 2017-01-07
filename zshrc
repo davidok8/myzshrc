@@ -61,14 +61,16 @@ export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
-if [ "$(hostname)" = "zenbook" ]; then
+if [[ "$(hostname)" == "bokor" ||
+      "$(hostname)" == "tatai" ||
+      "$(hostname)" == "mir053" ]]; then
   export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
-elif [ "$(hostname)" = "davids-macbook" ]; then
-  export WORKON_HOME=${HOME}/virtualenvs
-  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+elif [[ "$(hostname)" == "kulen" ]]; then
+  export WORKON_HOME=${HOME}/sandbox/virtualenvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 fi
