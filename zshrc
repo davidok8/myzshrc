@@ -58,22 +58,14 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH=/Applications/MacVim.app/Contents/bin:${PATH}
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
-if [[ "$(hostname)" == "bokor" ||
-      "$(hostname)" == "tatai" ||
-      "$(hostname)" == "mir053" ]]; then
-  export WORKON_HOME=${HOME}/virtualenvs
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-  source /usr/local/bin/virtualenvwrapper.sh
-elif [[ "$(hostname)" == "kulen" ]]; then
-  export WORKON_HOME=${HOME}/sandbox/virtualenvs
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-  source /usr/local/bin/virtualenvwrapper.sh
-fi
+export WORKON_HOME=${HOME}/virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Golang environment
 export GOPATH=$HOME/go
@@ -113,3 +105,5 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PYTHONPATH="/Users/david/GitHub/davidok8/balzac2:/Users/david/GitHub/davidok8/balzac2/app/modules"
