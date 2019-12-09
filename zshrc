@@ -58,25 +58,26 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH=/usr/lib/ccache:$PATH
+#export PATH=/home/david/swift-5.1.1-RELEASE-ubuntu18.04/usr/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
 if [[ "$(hostname)" == "bokor" ||
-      "$(hostname)" == "tatai" ||
-      "$(hostname)" == "mir053" ]]; then
+      "$(hostname)" == "tatai" ]]; then
   export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 elif [[ "$(hostname)" == "kulen" ]]; then
-  export WORKON_HOME=${HOME}/sandbox/virtualenvs
+  export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-  source /usr/local/bin/virtualenvwrapper.sh
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
+export PYTHONPATH="/home/david/GitHub/davidok8/balzac2:/home/david/GitHub/davidok8/balzac2/app/modules"
 
-# Golang environment
-export GOPATH=$HOME/go
 
 # Preferred editor for local and remote sessions
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -113,3 +114,25 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+alias gh='cd ${HOME}/GitHub'
+alias gl='cd ${HOME}/GitLab'
+alias cdsara='cd ${HOME}/GitHub/DO-CV/sara'
+alias cdsarad='cd ${HOME}/GitHub/DO-CV/sara-build-Debug'
+alias cdsarar='cd ${HOME}/GitHub/DO-CV/sara-build-Release'
+alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
+alias androidstudio='${HOME}/android-studio/bin/studio.sh'
+
+alias balzacsummary='CUDA_VISIBLE_DEVICES=1 \
+  python ${HOME}/GitHub/davidok8/balzac2/app/schedule/core.py \
+  --account=live --request_positions_summary'
+
+alias mailkrousar='python \
+  ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
+alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
+
+alias cling='/home/david/GitHub/cling-build/inst/bin/cling'
+
+workon docv-python3
+source /home/david/.cargo/env
