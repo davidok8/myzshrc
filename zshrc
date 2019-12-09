@@ -51,23 +51,36 @@ BULLETTRAIN_IS_SSH_CLIENT="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
 
-
 # User configuration
 source $ZSH/oh-my-zsh.sh
+
 
 export LANG=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
+# Use ccache aliases by default for C and C++ compilers.
+export PATH=/usr/lib/ccache:${PATH}
+
+export MANPATH="/usr/local/man:$MANPATH"
 
 # Python environment.
-if [[ "$(hostname)" == "bokor" ||
-      "$(hostname)" == "tatai" ||
+if [[ "$(hostname)" == "bokor"   ||
+      "$(hostname)" == "tatai"   ||
       "$(hostname)" == "mir053" ]]; then
   export WORKON_HOME=${HOME}/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
+elif [[ "$(hostname)" == "fractal" ]]; then
+  export WORKON_HOME=${HOME}/virtualenvs
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+  export PYTHONPATH=/usr/lib/python3.5/dist-packages:$PYTHONPATH
+  export PYTHONPATH=/home/david/GitHub/HumanisingAutonomy/xlive_pipeline:$PYTHONPATH
+
+  workon ha-python3
 elif [[ "$(hostname)" == "kulen" ]]; then
   export WORKON_HOME=${HOME}/sandbox/virtualenvs
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
@@ -78,6 +91,7 @@ fi
 # Golang environment
 export GOPATH=$HOME/go
 
+
 # Preferred editor for local and remote sessions
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export EDITOR='vim'
@@ -87,29 +101,22 @@ elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# SSH
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# Colored output for GCC.
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.y
-# For a full list of active aliases, run `alias`.
+
+# ==============================================================================
+# Aliases
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias ls='ls --color=auto -FX --group-directories-first'
 elif [[ "$OSTYPE" == "darwin*" ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# added by travis gem
+# Added by travis gem
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
 
+# For MacOSX
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
