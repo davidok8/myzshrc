@@ -153,9 +153,6 @@ elif [[ "$OSTYPE" == "darwin*" ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-alias gh='cd ${HOME}/GitHub'
-alias gl='cd ${HOME}/GitLab'
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Add balzac.
