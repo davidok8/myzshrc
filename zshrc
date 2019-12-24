@@ -56,6 +56,7 @@ plugins=(git zsh-syntax-highlighting zsh-history-substring-search zsh-autosugges
 source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=/Applications/MacVim.app/Contents/bin:${PATH}
@@ -106,4 +107,13 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Add balzac.
 export PYTHONPATH="/Users/david/GitHub/davidok8/balzac2:/Users/david/GitHub/davidok8/balzac2/app/modules"
+export PYTHONPATH="/Users/david/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
+
+alias cdsara='cd /Users/david/GitLab/DO-CV/sara'
+alias cdsararel='cd /Users/david/GitLab/DO-CV/sara-build-Release'
+alias cdsaradeb='cd /Users/david/GitLab/DO-CV/sara-build-Debug'
+alias cdsaraxcode='cd /Users/david/GitLab/DO-CV/sara-build-Xcode'
+
+workon docv-python3
