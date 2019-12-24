@@ -52,7 +52,7 @@ BULLETTRAIN_IS_SSH_CLIENT="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
