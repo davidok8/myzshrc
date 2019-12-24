@@ -1,3 +1,6 @@
+# ==============================================================================
+# Oh-My-ZSH
+#
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -49,29 +52,78 @@ BULLETTRAIN_IS_SSH_CLIENT="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
-
+plugins=(git zsh-syntax-highlighting)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
 
+
+# ==============================================================================
+# Common export variables.
+#
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH=/Applications/MacVim.app/Contents/bin:${PATH}
-# export MANPATH="/usr/local/man:$MANPATH"
+# Use ccache aliases by default for C and C++ compilers.
+export PATH=/usr/lib/ccache:${PATH}
+# Use swift.
+# export PATH=/home/david/swift-5.1.1-RELEASE-ubuntu18.04/usr/bin:$PATH
 
+export MANPATH="/usr/local/man:$MANPATH"
+
+# Shared library paths.
+if [[ "$(hostname)" == "kulen"   ||
+      "$(hostname)" == "fractal" ]]; then
+  export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
+fi
+
+
+# ==============================================================================
 # Python environment.
 export WORKON_HOME=${HOME}/virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
 
-# Golang environment
-export GOPATH=$HOME/go
+if [[ "$(hostname)" == "bokor" ||
+      "$(hostname)" == "tatai" ]]; then
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+  source /usr/local/bin/virtualenvwrapper.sh
+elif [[ "$(hostname)" == "fractal" ]]; then
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+  export PYTHONPATH=/usr/lib/python3.5/dist-packages:$PYTHONPATH
+  export PYTHONPATH=/home/david/GitHub/HumanisingAutonomy/xlive_pipeline:$PYTHONPATH
+
+  workon ha-python3
+elif [[ "$(hostname)" == "kulen" ]]; then
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+  workon docv-python3
+elif [[ "$(hostname)" == "vihear" ]]; then
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+  source /usr/local/bin/virtualenvwrapper.sh
+
+  workon docv-python3
+fi
+
+
+# ==============================================================================
+# Rust environment.
+#
+if [[ "$(hostname)" == "kulen" ]]; then
+  source /home/david/.cargo/env
+fi
+
+
+# ==============================================================================
 # Preferred editor for local and remote sessions
+#
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export EDITOR='vim'
 elif [[ "$OSTYPE" == "darwin*" ]]; then
@@ -80,40 +132,50 @@ elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# SSH
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# Colored output for GCC.
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.y
-# For a full list of active aliases, run `alias`.
+
+# Added by travis gem
+[ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
+
+# For MacOSX
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# ==============================================================================
+# Aliases
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias ls='ls --color=auto -FX --group-directories-first'
 elif [[ "$OSTYPE" == "darwin*" ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# added by travis gem
-[ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
+alias gh='cd ${HOME}/GitHub'
+alias gl='cd ${HOME}/GitLab'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Add balzac.
-export PYTHONPATH="/Users/david/GitHub/davidok8/balzac2:/Users/david/GitHub/davidok8/balzac2/app/modules"
-export PYTHONPATH="/Users/david/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
+export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
+export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
 
-alias cdsara='cd /Users/david/GitLab/DO-CV/sara'
-alias cdsararel='cd /Users/david/GitLab/DO-CV/sara-build-Release'
-alias cdsaradeb='cd /Users/david/GitLab/DO-CV/sara-build-Debug'
-alias cdsaraxcode='cd /Users/david/GitLab/DO-CV/sara-build-Xcode'
+alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
+alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
+alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
+alias cdsaraxcode='cd ${HOME}/GitLab/DO-CV/sara-build-Xcode'
 
-workon docv-python3
+alias androidstudio='${HOME}/android-studio/bin/studio.sh'
+
+alias cling='/home/david/GitHub/cling-build/inst/bin/cling'
+
+# Balzac.
+alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
+alias balzacsummary='CUDA_VISIBLE_DEVICES=1 \
+  python ${HOME}/GitHub/davidok8/balzac2/app/schedule/core.py \
+  --account=live --request_positions_summary'
+alias mailkrousar='python \
+  ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
+alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
