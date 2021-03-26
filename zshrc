@@ -67,14 +67,20 @@ source $ZSH/oh-my-zsh.sh
 # ==============================================================================
 # Common export variables.
 #
+# export TERM=xterm-256color-italic
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=/snap/bin:$PATH
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  export PATH=/snap/bin:$PATH
   export PATH=$HOME/Android/Sdk/tools/bin:/home/david/opt/gecko-driver:$HOME/.local/bin:$PATH
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH=${HOME}/nvim-osx64/bin:${PATH}
 fi
+# Use ccache aliases by default for C and C++ compilers.
+export PATH=/usr/lib/ccache:${PATH}
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -119,20 +125,31 @@ elif [[ "$(hostname)" == "kulen" ]]; then
 
   workon docv-python3
 elif [[ "$(hostname)" == "vihear" ]]; then
-  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 
   workon docv-python3
 fi
 
+# Add paths to Sara.
+if [[ "$OSTYPE" == "darwin*" ]]; then
+  export LD_LIBRARY_PATH=${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib
+  export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib":${HOME}/GitLab/DO-CV/sara/python:${PYTHONPATH}
+fi
+
+# Add paths to Balzac.
+export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules":$PYTHONPATH
+export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Release/lib":"${HOME}/GitLab/DO-CV/sara/python":${PYTHONPATH}
+export PYTHONPATH="$HOME/GitHub":${PYTHONPATH}
+
 
 # ==============================================================================
 # Preferred editor for local and remote sessions
 #
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  export EDITOR='nvim'
-elif [[ "$OSTYPE" == "darwin*" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  export EDITOR='nvim.appimage'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   export EDITOR='nvim';
 elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
@@ -165,20 +182,26 @@ if [[ "OSTYPE" == "linux-gnu"* ]]; then
   alias open=xdg-open
 fi
 
-# Add balzac.
-export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules":$PYTHONPATH
-export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Release/lib":"${HOME}/GitLab/DO-CV/sara/python":${PYTHONPATH}
-export PYTHONPATH="$HOME/GitHub":${PYTHONPATH}
+# PIP
+function pip_upgrade_all()
+{
+  pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+}
+
+# Define the right Vim flavor we want to use.
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias vim='nvim.appimage'
+  alias nvim='nvim.appimage'
+else
+  alias vim='nvim'
+fi
+
 
 alias cdgaruda='cd ${HOME}/GitLab/DO-CV/garuda'
 alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
 alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
 alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
 alias cdsaraxcode='cd ${HOME}/GitLab/DO-CV/sara-build-Xcode'
-
-alias androidstudio='${HOME}/android-studio/bin/studio.sh'
-
-alias cling='/home/david/GitHub/cling-build/inst/bin/cling'
 
 # Balzac.
 alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
@@ -194,14 +217,7 @@ alias cdhaeng='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine'
 alias cdhaengdeb='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine-Debug'
 alias cdhaengrel='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine-RelWithDebInfo'
 
-if [[ "OSTYPE" == "linux-gnu"* ]]; then
-  alias androidstudio='~/opt/android-studio/bin/studio.sh'
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias androidstudio='$HOME/opt/android-studio/bin/studio.sh'
   alias icat='kitty +kitten icat'
-  alias vim='nvim.appimage'
-  alias nvim='nvim.appimage'
 fi
-
-function pip_upgrade_all()
-{
-  pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-}
