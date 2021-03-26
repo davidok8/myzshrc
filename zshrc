@@ -71,18 +71,24 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=/Applications/MacVim.app/Contents/bin:${PATH}
-# Use ccache aliases by default for C and C++ compilers.
-export PATH=/usr/lib/ccache:${PATH}
-# Use swift.
-# export PATH=/home/david/swift-5.1.1-RELEASE-ubuntu18.04/usr/bin:$PATH
+export PATH=/snap/bin:$PATH
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  export PATH=$HOME/Android/Sdk/tools/bin:/home/david/opt/gecko-driver:$HOME/.local/bin:$PATH
+fi
 
 export MANPATH="/usr/local/man:$MANPATH"
 
 # Shared library paths.
 if [[ "$(hostname)" == "kulen"   ||
       "$(hostname)" == "fractal" ]]; then
+  # Specific to TensoRT on ubuntu 20.04
+  export LD_LIBRARY_PATH=${HOME}/opt/cuda-11.1/lib64:${LD_LIBRARY_PATH}
+  # CUDA.
   export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
+  # Hardware accelerated FFmpeg libraries.
+  export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATHS}
+  # Darknet.
+  export LIB_DARKNET=/home/david/GitHub/HumanisingAutonomy/darknet/build/libdark.so
 fi
 
 
@@ -105,9 +111,11 @@ elif [[ "$(hostname)" == "fractal" ]]; then
 
   workon ha-python3
 elif [[ "$(hostname)" == "kulen" ]]; then
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
   source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+  export PYTHONPATH=/home/david/GitHub/HumanisingAutonomy/ha_libs:$PYTHONPATH
 
   workon docv-python3
 elif [[ "$(hostname)" == "vihear" ]]; then
@@ -120,28 +128,18 @@ fi
 
 
 # ==============================================================================
-# Rust environment.
-#
-if [[ "$(hostname)" == "kulen" ]]; then
-  source /home/david/.cargo/env
-fi
-
-
-# ==============================================================================
 # Preferred editor for local and remote sessions
 #
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 elif [[ "$OSTYPE" == "darwin*" ]]; then
-  export EDITOR='mvim -v';
+  export EDITOR='nvim';
 elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
 fi
 
-
 # Colored output for GCC.
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 
 # Added by travis gem
 [ -f /home/david/.travis/travis.sh ] && source /home/david/.travis/travis.sh
@@ -149,23 +147,30 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # For MacOSX
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# FZF.
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 # ==============================================================================
 # Aliases
 #
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias ls='ls --color=auto -FX --group-directories-first'
-elif [[ "$OSTYPE" == "darwin*" ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# Like in MacOS.
+if [[ "OSTYPE" == "linux-gnu"* ]]; then
+  alias open=xdg-open
+fi
 
 # Add balzac.
-export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
-export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
+export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules":$PYTHONPATH
+export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Release/lib":"${HOME}/GitLab/DO-CV/sara/python":${PYTHONPATH}
+export PYTHONPATH="$HOME/GitHub":${PYTHONPATH}
 
-
+alias cdgaruda='cd ${HOME}/GitLab/DO-CV/garuda'
 alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
 alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
 alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
@@ -177,13 +182,24 @@ alias cling='/home/david/GitHub/cling-build/inst/bin/cling'
 
 # Balzac.
 alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
+alias ibgateway='exec ${HOME}/Jts/ibgateway/972/ibgateway'
 alias balzacsummary='CUDA_VISIBLE_DEVICES=1 \
   python ${HOME}/GitHub/davidok8/balzac2/app/schedule/core.py \
-  --account=live --request_positions_summary'
+  --account=live --request_position_summary'
 alias mailkrousar='python \
   ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
 alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
 
+alias cdhaeng='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine'
+alias cdhaengdeb='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine-Debug'
+alias cdhaengrel='cd ${HOME}/GitHub/HumanisingAutonomy/ha-engine-RelWithDebInfo'
+
+if [[ "OSTYPE" == "linux-gnu"* ]]; then
+  alias androidstudio='~/opt/android-studio/bin/studio.sh'
+  alias icat='kitty +kitten icat'
+  alias vim='nvim.appimage'
+  alias nvim='nvim.appimage'
+fi
 
 function pip_upgrade_all()
 {
