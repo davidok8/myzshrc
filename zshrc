@@ -61,15 +61,17 @@ source $ZSH/oh-my-zsh.sh
 # ==============================================================================
 # Common export variables.
 #
+# export TERM=xterm-256color-italic
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH=/Applications/MacVim.app/Contents/bin:${PATH}
+if [[ "$OSTYPE" == "Darwin*" ]]; then
+  export PATH=${HOME}/nvim-osx64/bin:${PATH}
+fi
 # Use ccache aliases by default for C and C++ compilers.
 export PATH=/usr/lib/ccache:${PATH}
-# Use swift.
-# export PATH=/home/david/swift-5.1.1-RELEASE-ubuntu18.04/usr/bin:$PATH
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -105,19 +107,11 @@ elif [[ "$(hostname)" == "kulen" ]]; then
 
   workon docv-python3
 elif [[ "$(hostname)" == "vihear" ]]; then
-  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source /usr/local/bin/virtualenvwrapper.sh
 
   workon docv-python3
-fi
-
-
-# ==============================================================================
-# Rust environment.
-#
-if [[ "$(hostname)" == "kulen" ]]; then
-  source /home/david/.cargo/env
 fi
 
 
@@ -127,7 +121,7 @@ fi
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export EDITOR='vim'
 elif [[ "$OSTYPE" == "darwin*" ]]; then
-  export EDITOR='mvim -v';
+  export EDITOR='nvim';
 elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
 fi
@@ -153,20 +147,19 @@ elif [[ "$OSTYPE" == "darwin*" ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # Add balzac.
+export LD_LIBRARY_PATH=${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib
 export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
-export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
+if [[ "$OSTYPE" == "darwin*" ]]; then
+  export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib":${HOME}/GitLab/DO-CV/sara/python:${PYTHONPATH}
+fi
 
 alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
 alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
 alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
 alias cdsaraxcode='cd ${HOME}/GitLab/DO-CV/sara-build-Xcode'
 
-alias androidstudio='${HOME}/android-studio/bin/studio.sh'
-
-alias cling='/home/david/GitHub/cling-build/inst/bin/cling'
+alias vim='nvim'
 
 # Balzac.
 alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
@@ -176,3 +169,5 @@ alias balzacsummary='CUDA_VISIBLE_DEVICES=1 \
 alias mailkrousar='python \
   ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
 alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
