@@ -58,7 +58,7 @@ BULLETTRAIN_IS_SSH_CLIENT="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git colored-man-pages colorize zsh-syntax-highlighting)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
@@ -165,6 +165,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
 export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Debug/lib":${PYTHONPATH}
 
+
 alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
 alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
 alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
@@ -182,3 +183,9 @@ alias balzacsummary='CUDA_VISIBLE_DEVICES=1 \
 alias mailkrousar='python \
   ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
 alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
+
+
+function pip_upgrade_all()
+{
+  pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+}
