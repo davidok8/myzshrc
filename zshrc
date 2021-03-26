@@ -10,8 +10,14 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="bullet-train"
 BULLETTRAIN_CONTEXT_SHOW="true"
-BULLETTRAIN_CONTEXT_BG="green"
-BULLETTRAIN_CONTEXT_FG="white"
+BULLETTRAIN_CONTEXT_BG="#5E81AC"
+BULLETTRAIN_CONTEXT_FG="#ECEFF4"
+BULLETTRAIN_DIR_BG="#BF616A"
+BULLETTRAIN_DIR_FG="#ECEFF4"
+BULLETTRAIN_VIRTUALENV_BG="#B48EAD"
+BULLETTRAIN_VIRTUALENV_FG="#ECEFF4"
+BULLETTRAIN_GIT_BG="#65737E"
+BULLETTRAIN_GIT_FG="#ECEFF4"
 BULLETTRAIN_IS_SSH_CLIENT="true"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -67,7 +73,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 export PATH="/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-if [[ "$OSTYPE" == "Darwin*" ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH=${HOME}/nvim-osx64/bin:${PATH}
 fi
 # Use ccache aliases by default for C and C++ compilers.
@@ -120,7 +126,7 @@ fi
 #
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   export EDITOR='vim'
-elif [[ "$OSTYPE" == "darwin*" ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   export EDITOR='nvim';
 elif [[ "$OSTYPE" == "msys" ]]; then
   export EDITOR='vim'
@@ -137,22 +143,18 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # For MacOSX
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# FZF.
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ==============================================================================
 # Aliases
 #
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   alias ls='ls --color=auto -FX --group-directories-first'
-elif [[ "$OSTYPE" == "darwin*" ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   alias ls='gls --color=auto -FX --group-directories-first'
 fi
 
-# Add balzac.
-export LD_LIBRARY_PATH=${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib
-export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
-if [[ "$OSTYPE" == "darwin*" ]]; then
-  export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib":${HOME}/GitLab/DO-CV/sara/python:${PYTHONPATH}
-fi
 
 alias cdsara='cd ${HOME}/GitLab/DO-CV/sara'
 alias cdsararel='cd ${HOME}/GitLab/DO-CV/sara-build-Release'
@@ -160,6 +162,13 @@ alias cdsaradeb='cd ${HOME}/GitLab/DO-CV/sara-build-Debug'
 alias cdsaraxcode='cd ${HOME}/GitLab/DO-CV/sara-build-Xcode'
 
 alias vim='nvim'
+
+# Add balzac.
+export LD_LIBRARY_PATH=${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib
+export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balzac2/app/modules"
+if [[ "$OSTYPE" == "darwin*" ]]; then
+  export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib":${HOME}/GitLab/DO-CV/sara/python:${PYTHONPATH}
+fi
 
 # Balzac.
 alias cdbalzac='cd ${HOME}/GitHub/davidok8/balzac2'
@@ -170,4 +179,7 @@ alias mailkrousar='python \
   ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py --send_email'
 alias cronkrousar='python ${HOME}/GitHub/davidok8/krousar/porfolio_summary.py'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function pip_upgrade_all()
+{
+  pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+}
