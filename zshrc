@@ -133,7 +133,7 @@ elif [[ "$(hostname)" == "vihear" ]]; then
 fi
 
 # Add paths to Sara.
-if [[ "$OSTYPE" == "darwin*" ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   export LD_LIBRARY_PATH=${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib
   export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-install/darwin-latest/usr/local/lib":${HOME}/GitLab/DO-CV/sara/python:${PYTHONPATH}
 fi
