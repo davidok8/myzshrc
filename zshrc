@@ -10,8 +10,14 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="bullet-train"
 BULLETTRAIN_CONTEXT_SHOW="true"
-BULLETTRAIN_CONTEXT_BG="green"
-BULLETTRAIN_CONTEXT_FG="white"
+BULLETTRAIN_CONTEXT_BG="#5E81AC"
+BULLETTRAIN_CONTEXT_FG="#ECEFF4"
+BULLETTRAIN_DIR_BG="#BF616A"
+BULLETTRAIN_DIR_FG="#ECEFF4"
+BULLETTRAIN_VIRTUALENV_BG="#B48EAD"
+BULLETTRAIN_VIRTUALENV_FG="#ECEFF4"
+BULLETTRAIN_GIT_BG="#65737E"
+BULLETTRAIN_GIT_FG="#ECEFF4"
 BULLETTRAIN_IS_SSH_CLIENT="true"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -52,7 +58,7 @@ BULLETTRAIN_IS_SSH_CLIENT="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=(git)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
