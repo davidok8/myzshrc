@@ -148,6 +148,10 @@ export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Release/lib":"${HOME}/GitLab/
 export PYTHONPATH="$HOME/GitHub":${PYTHONPATH}
 
 
+if [[ "$(hostname)" == "kulen" ]]; then
+  source $HOME/.cargo/env
+fi
+
 # ==============================================================================
 # Preferred editor for local and remote sessions
 #
