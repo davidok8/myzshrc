@@ -147,6 +147,8 @@ export PYTHONPATH="${HOME}/GitHub/davidok8/balzac2:${HOME}/GitHub/davidok8/balza
 export PYTHONPATH="${HOME}/GitLab/DO-CV/sara-build-Release/lib":"${HOME}/GitLab/DO-CV/sara/python":${PYTHONPATH}
 export PYTHONPATH="$HOME/GitHub":${PYTHONPATH}
 
+export RETICULATE_PYTHON=$WORKON_HOME/docv-python3/bin/python
+
 
 if [[ "$(hostname)" == "kulen" ]]; then
   source $HOME/.cargo/env
