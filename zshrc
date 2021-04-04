@@ -19,6 +19,8 @@ BULLETTRAIN_VIRTUALENV_FG="#ECEFF4"
 BULLETTRAIN_GIT_BG="#4D535B"
 BULLETTRAIN_GIT_FG="#ECEFF4"
 BULLETTRAIN_IS_SSH_CLIENT="true"
+BULLETTRAIN_EXEC_TIME_ELAPSED=0
+BULLETTRAIN_EXEC_TIME_BG="#C5C8C6"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -93,6 +95,8 @@ if [[ "$(hostname)" == "kulen"   ||
   export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
   # Hardware accelerated FFmpeg libraries.
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATHS}
+  # Use specific Qt 5.15 library.
+  # export LD_LIBRARY_PATH=${HOME}/opt/Qt-5.15.0-amd64/lib:${LD_LIBRARY_PATH}
   # Darknet.
   export LIB_DARKNET=/home/david/GitHub/HumanisingAutonomy/darknet/build/libdark.so
 fi
