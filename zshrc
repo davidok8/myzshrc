@@ -83,6 +83,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 # Use ccache aliases by default for C and C++ compilers.
 export PATH=/usr/lib/ccache:${PATH}
+export PATH=$HOME/bin:$PATH
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -188,7 +189,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Like in MacOS.
-if [[ "OSTYPE" == "linux-gnu"* ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias open=xdg-open
 fi
 
